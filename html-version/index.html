@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Accounting & Sales Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hidden { display: none; }
+        .fade-in { animation: fadeIn 0.3s ease-in; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm border-b" id="navbar" style="display: none;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div>
+                    <h1 class="text-xl font-bold text-gray-900">Business Accounting</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button onclick="showPage('dashboard')" class="text-blue-600 hover:text-blue-800">Dashboard</button>
+                    <button onclick="showPage('transactions')" class="text-blue-600 hover:text-blue-800">Transactions</button>
+                    <button onclick="showPage('reports')" class="text-blue-600 hover:text-blue-800">Reports</button>
+                    <button onclick="showPage('users')" class="text-blue-600 hover:text-blue-800">Users</button>
+                    <button onclick="logout()" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Page -->
+    <div id="loginPage" class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8">
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-bold text-gray-900">Welcome to Business Accounting</h2>
+                <p class="text-gray-600 mt-2">Sign in to access your account</p>
+            </div>
+            
+            <form onsubmit="login(event)" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2">📧</span>
+                        <input type="email" id="email" placeholder="Enter your email" 
+                               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                               value="admin@example.com" required>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                    <div class="relative">
+                        <span class="absolute left-3 top-1/2 transform -translate-y-1/2">🔒</span>
+                        <input type="password" id="password" placeholder="Enter your password"
+                               class="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                               value="password" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-600">
+                    Demo Credentials: admin@example.com / password
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard Page -->
+    <div id="dashboardPage" class="hidden">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Dashboard</h1>
+                <p class="text-gray-600">Welcome back! Here's your business overview.</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Total Revenue</p>
+                            <p class="text-2xl font-bold text-green-600">$45,231.89</p>
+                        </div>
+                        <span class="text-2xl">💰</span>
+                    </div>
+                    <p class="text-xs text-green-600 mt-2">📈 +20.1% from last month</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Total Expenses</p>
+                            <p class="text-2xl font-bold text-red-600">$12,234.56</p>
+                        </div>
+                        <span class="text-2xl">💸</span>
+                    </div>
+                    <p class="text-xs text-red-600 mt-2">+4.3% from last month</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Net Profit</p>
+                            <p class="text-2xl font-bold text-blue-600">$32,997.33</p>
+                        </div>
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <p class="text-xs text-blue-600 mt-2">+15.2% from last month</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm font-medium text-gray-600">Transactions</p>
+                            <p class="text-2xl font-bold text-gray-900">2,350</p>
+                        </div>
+                        <span class="text-2xl">📄</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-2">+180 from last month</p>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6 cursor-pointer hover:shadow-lg transition-shadow" onclick="showPage('transactions')">
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-3">📝</span>
+                        <div>
+                            <h3 class="text-lg font-semibold">Add Transaction</h3>
+                            <p class="text-gray-600">Record income or expense</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6 cursor-pointer hover:shadow-lg transition-shadow" onclick="showPage('reports')">
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-3">📊</span>
+                        <div>
+                            <h3 class="text-lg font-semibold">View Reports</h3>
+                            <p class="text-gray-600">Financial analytics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6 cursor-pointer hover:shadow-lg transition-shadow" onclick="showPage('users')">
+                    <div class="flex items-center">
+                        <span class="text-2xl mr-3">👥</span>
+                        <div>
+                            <h3 class="text-lg font-semibold">Manage Users</h3>
+                            <p class="text-gray-600">Team management</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-6 border-b">
+                    <h3 class="text-lg font-semibold">Recent Activity</h3>
+                    <p class="text-gray-600">Latest transactions and updates</p>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 border rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                                <div>
+                                    <p class="font-medium">New sale recorded</p>
+                                    <p class="text-sm text-gray-500">$1,234.56 - Office supplies</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">2 hours ago</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-4 border rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+                                <div>
+                                    <p class="font-medium">Expense approved</p>
+                                    <p class="text-sm text-gray-500">$567.89 - Marketing campaign</p>
+                                </div>
+                            </div>
+                            <span class="text-sm text-gray-500">4 hours ago</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Transactions Page -->
+    <div id="transactionsPage" class="hidden">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Transactions</h1>
+                    <p class="text-gray-600">Manage your income and expenses</p>
+                </div>
+                <button onclick="showAddTransactionForm()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Add Transaction
+                </button>
+            </div>
+
+            <!-- Add Transaction Form -->
+            <div id="addTransactionForm" class="hidden bg-white rounded-lg shadow p-6 mb-8">
+                <h3 class="text-lg font-semibold mb-4">Add New Transaction</h3>
+                <form onsubmit="addTransaction(event)" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Type</label>
+                        <select id="transactionType" class="w-full p-2 border border-gray-300 rounded-md">
+                            <option value="expense">Expense</option>
+                            <option value="income">Income</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Amount</label>
+                        <input type="number" id="transactionAmount" placeholder="0.00" step="0.01" required
+                               class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                        <input type="text" id="transactionDescription" placeholder="Transaction description" required
+                               class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                        <input type="text" id="transactionCategory" placeholder="Category" required
+                               class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div class="md:col-span-2 flex justify-end space-x-4 mt-4">
+                        <button type="button" onclick="hideAddTransactionForm()" class="px-4 py-2 border border-gray-300 rounded hover:bg-gray-50">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                            Add Transaction
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Transactions List -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-6 border-b">
+                    <h3 class="text-lg font-semibold">All Transactions</h3>
+                </div>
+                <div class="p-6">
+                    <div id="transactionsList" class="space-y-4">
+                        <!-- Transactions will be populated by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Reports Page -->
+    <div id="reportsPage" class="hidden">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-gray-900">Financial Reports</h1>
+                <p class="text-gray-600">Comprehensive financial analysis and insights</p>
+            </div>
+
+            <!-- Report Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-green-600 mb-2">Total Income</h3>
+                    <p class="text-3xl font-bold text-green-600">$45,231.89</p>
+                    <p class="text-sm text-green-600 mt-2">+20.1% from last month</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-red-600 mb-2">Total Expenses</h3>
+                    <p class="text-3xl font-bold text-red-600">$12,234.56</p>
+                    <p class="text-sm text-red-600 mt-2">+4.3% from last month</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow p-6">
+                    <h3 class="text-lg font-semibold text-blue-600 mb-2">Net Profit</h3>
+                    <p class="text-3xl font-bold text-blue-600">$32,997.33</p>
+                    <p class="text-sm text-blue-600 mt-2">+15.2% from last month</p>
+                </div>
+            </div>
+
+            <!-- Chart Placeholder -->
+            <div class="bg-white rounded-lg shadow p-6 mb-8">
+                <h3 class="text-lg font-semibold mb-4">Revenue vs Expenses</h3>
+                <div class="h-64 bg-gray-100 rounded flex items-center justify-center">
+                    <div class="text-center">
+                        <div class="text-4xl mb-2">📊</div>
+                        <p class="text-gray-600">Chart visualization would be here</p>
+                        <p class="text-sm text-gray-500">Using Chart.js or similar library</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Users Page -->
+    <div id="usersPage" class="hidden">
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div class="flex justify-between items-center mb-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">User Management</h1>
+                    <p class="text-gray-600">Manage users, roles, and permissions</p>
+                </div>
+                <button onclick="addUser()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+                    Add User
+                </button>
+            </div>
+
+            <!-- Users List -->
+            <div class="bg-white rounded-lg shadow">
+                <div class="p-6 border-b">
+                    <h3 class="text-lg font-semibold">All Users</h3>
+                </div>
+                <div class="p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 border rounded-lg">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    AU
+                                </div>
+                                <div>
+                                    <p class="font-medium">Admin User</p>
+                                    <p class="text-sm text-gray-500">admin@example.com</p>
+                                    <p class="text-sm text-gray-500">Management</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="px-2 py-1 bg-purple-100 text-purple-800 rounded-full text-xs font-medium">admin</span>
+                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">active</span>
+                                <div class="flex space-x-2">
+                                    <button onclick="editUser(1)" class="px-2 py-1 text-xs border border-gray-300 rounded hover:bg-gray-50">Edit</button>
+                                    <button onclick="toggleUserStatus(1)" class="px-2 py-1 text-xs border border-gray-300 rounded hover:bg-gray-50">Deactivate</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between p-4 border rounded-lg">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+                                    JS
+                                </div>
+                                <div>
+                                    <p class="font-medium">John Smith</p>
+                                    <p class="text-sm text-gray-500">john.accountant@example.com</p>
+                                    <p class="text-sm text-gray-500">Finance</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded-full text-xs font-medium">accountant</span>
+                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-xs font-medium">active</span>
+                                <div class="flex space-x-2">
+                                    <button onclick="editUser(2)" class="px-2 py-1 text-xs border border-gray-300 rounded hover:bg-gray-50">Edit</button>
+                                    <button onclick="toggleUserStatus(2)" class="px-2 py-1 text-xs border border-gray-300 rounded hover:bg-gray-50">Deactivate</button>
+                                    <button onclick="deleteUser(2)" class="px-2 py-1 text-xs bg-red-600 text-white rounded hover:bg-red-700">Delete</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
